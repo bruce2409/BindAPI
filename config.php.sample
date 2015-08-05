@@ -1,0 +1,36 @@
+<?php
+
+/*
+ * The secret key required to make sure the
+ * requests are from a legitimate source
+ */
+define('SECRET_KEY', 'secret');
+
+/*
+ * The DNS Zone name on the DNS Server
+ */
+define('DNS_ZONE', 'example.com');
+
+/*
+ * The path of your BIND key pair 
+ * HIGHLY RECOMMENDED TO KEEP OUTSIDE OF WEBROOT!
+ */
+define('DNS_KEY_PATH', '/path/to/directory');
+
+/*
+ * Name of the key files', without extension
+ * ie 'myzonekey' NOT 'myzonekey.key'
+ */
+define('DNS_KEY_NAME', 'keyfile');
+
+/*
+ * The DNS Record to be created by the 
+ * script on the DNS Server
+ */
+define('DNS_RECORD', 'foo.example.com');
+
+/*
+ * The DNS server which will have the request
+ * added to it by the script
+ */
+define('DNS_SERVER', 'ns.example.com');
