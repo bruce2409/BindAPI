@@ -78,15 +78,16 @@ class dnsApi
 		$file  = "server ". DNS_SERVER . "\n";
 		$file .= "debug yes\n";
 		$file .= "zone " . DNS_ZONE . "\n";
-		$file .= "update delete " . DNS_RECORD . ". A\n";
 		$file .= "update add " . DNS_RECORD ." 300 A $userIp\n";
 		$file .= "show\n";
 		$file .= "send";
 
-		file_put_contents('/tmp/update.txt', $file);
+		//Generate a random file name just in case someone tries to inject in the update file
+		$filename = rand();
+		file_put_contents("/tmp/$filename.txt", $file);
 
 		$output = shell_exec('nsupdate -k ' . DNS_KEY_PATH . '/' . DNS_KEY_NAME . '.private -v /tmp/update.txt');
-		unlink('/tmp/update.txt');
+		unlink("/tmp/$filename.txt");
 
 		if(strpos($output, 'SERVFAIL') !== false)
 		{
@@ -96,6 +97,20 @@ class dnsApi
 		{
 			return array('state' => 'Success', 'detail' => DNS_RECORD . " successfully updated to $userIp");
 		}
+	}
+
+
+	/**
+	 * View the info of the current
+	 * DNS record specified in the config
+	 * @return array of DNS info
+	 */
+
+	private static function showDnsInfo()
+	{
+		$dns = dns_get_record(DNS_RECORD, DNS_A);
+
+		return array('record' => DNS_RECORD, 'ip' => $dns[0]['ip']);
 	}
 
 }
