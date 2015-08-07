@@ -95,7 +95,12 @@ class dnsApi
 		}
 		else
 		{
+			if(isset($_GET['mail']))
+			{
+				mail(EMAIL_ADDRESS, 'DNS Updated!', DNS_RECORD . ' updated to ' . $userIp . ' at ' . date(c));
+			}
 			return array('state' => 'Success', 'detail' => DNS_RECORD . " successfully updated to $userIp");
+
 		}
 	}
 

@@ -34,3 +34,9 @@ define('DNS_RECORD', 'foo.example.com');
  * added to it by the script
  */
 define('DNS_SERVER', 'ns.example.com');
+
+/*
+ * Email address to send details of change
+ * to when the DNS record is updated
+ */
+define('EMAIL_ADDRESS', 'email@example.com');
